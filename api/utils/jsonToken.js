@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 const jsonToken = (user, statusCode, res) => {
   const token = jwt.sign({ id: user._id }, process.env.SECRET_TOKEN, {
-    entries: '1d',
+    expiresIn: '1d',
   });
   // Options for cookies
   const options = {
@@ -13,7 +13,7 @@ const jsonToken = (user, statusCode, res) => {
 
   res.status(statusCode).cookie('access_token', token, options).json({
     success: true,
-    token,
+    message: user,
   });
 };
 export default jsonToken;

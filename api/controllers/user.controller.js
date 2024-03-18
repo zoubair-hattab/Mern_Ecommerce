@@ -13,18 +13,32 @@ export const signout = (req, res, next) => {
 };
 export const getInfoUser = async (req, res, next) => {
   try {
-    if (!req.user) {
-      return next(
-        new ErrorHandler('You are not authenticated. Please log in first.', 400)
-      );
-    }
-    const user = User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password');
     if (!user) {
       return next(new ErrorHandler('This user does not exist.', 400));
     }
     res.status(200).json({
       success: true,
       message: user,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+};
+export const addTocard = async (req, res, next) => {
+  try {
+    const { cart } = req.body;
+    console.log(cart);
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return next(new ErrorHandler('User does not exist', 404));
+    }
+    await User.findByIdAndUpdate(req.user.id, {
+      cart,
+    });
+    res.status(200).json({
+      success: true,
+      message: 'Added to cart',
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));

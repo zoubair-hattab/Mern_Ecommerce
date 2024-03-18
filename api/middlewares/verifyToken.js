@@ -28,7 +28,7 @@ export const useryToken = (req, res, next) => {
 export const adminToken = async (req, res, next) => {
   try {
     //get user Information by id
-    const user = User.findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user.isAdmin) {
       return next(new ErrorHandler('Admin resources acces denied'));
     }

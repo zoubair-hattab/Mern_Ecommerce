@@ -1,6 +1,7 @@
 import express from 'express';
 import { adminToken, useryToken } from '../middlewares/verifyToken.js';
 import {
+  createCategory,
   deleteCategory,
   getCategory,
   updateCategory,

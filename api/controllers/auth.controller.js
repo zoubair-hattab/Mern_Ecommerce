@@ -5,8 +5,8 @@ import jsonToken from '../utils/jsonToken.js';
 export const createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
-
-    const user = User.findOne({ email });
+    console.log(password);
+    const user = await User.findOne({ email });
     if (user) {
       return next(new ErrorHandler('This email already exists.', 400));
     }
@@ -15,7 +15,7 @@ export const createUser = async (req, res, next) => {
         new ErrorHandler('Password must be at least 8 characters long.', 400)
       );
     }
-    passwordHash = bcryptjs.hashSync(password, 10);
+    const passwordHash = bcryptjs.hashSync(password, 10);
     const newUser = new User({
       name,
       email,
@@ -33,15 +33,17 @@ export const createUser = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = User.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return next(new ErrorHandler('This user is not exists.'));
     }
-    isMatched = bcryptjs.compareSync(user.password, password);
+    const isMatched = bcryptjs.compareSync(password, user.password);
+    console.log(isMatched);
     if (!isMatched) {
       return next(new ErrorHandler('Your credentials are not correct.', 400));
     }
-    jsonToken(user, 201, res);
+    const { password: pass, ...rest } = user._doc;
+    jsonToken(rest, 201, res);
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }

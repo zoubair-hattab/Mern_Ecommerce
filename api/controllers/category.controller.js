@@ -9,7 +9,7 @@ export const createCategory = async (req, res, next) => {
         new ErrorHandler('Please kindly fill in the name of the category.', 500)
       );
     }
-    const category = Category.findOne({ name });
+    const category = await Category.findOne({ name });
     if (category) {
       return next(new ErrorHandler('This name already exists.', 500));
     }
@@ -50,8 +50,9 @@ export const deleteCategory = async (req, res, next) => {
     return next(new ErrorHandler(error.message, 500));
   }
 };
-export const updateCategory = async (req, res, nex) => {
+export const updateCategory = async (req, res, next) => {
   try {
+    const { name } = req.body;
     const updateCategory = await Category.findByIdAndUpdate(
       req.params.categoryId,
       {
