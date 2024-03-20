@@ -9,7 +9,7 @@ import userRouters from './routes/user.router.js';
 import categoryRouters from './routes/category.router.js';
 import uploadRouters from './routes/upload.router.js';
 import productRouters from './routes/product.router.js';
-
+import paymentRouters from './routes/payment.router.js';
 import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
 dotenv.config();
@@ -39,6 +39,7 @@ app.use('/api/v2/user', userRouters);
 app.use('/api/v2/category', categoryRouters);
 app.use('/api/v2/product', productRouters);
 app.use('/api/v2/upload', uploadRouters);
+app.use('/api/v2/payment', paymentRouters);
 
 // Handle error
 app.use(ErrorHnadler);

@@ -6,6 +6,6 @@ import { deleteImage, uploadImage } from '../controllers/upload.controller.js';
 // we will upload image on cloudinary
 
 router.post('/upload-image', useryToken, adminToken, uploadImage);
-router.delete('/delete-image', useryToken, adminToken, deleteImage);
+router.delete('/delete-image/:id', useryToken, adminToken, deleteImage);
 
 export default router;

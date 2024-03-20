@@ -18,7 +18,7 @@ export const uploadImage = async (req, res, next) => {
 
     cloudinary.v2.uploader.upload(
       file.tempFilePath,
-      { folder: 'test' },
+      { folder: '' },
       async (err, result) => {
         if (err) throw err;
 
@@ -37,11 +37,12 @@ export const uploadImage = async (req, res, next) => {
 
 export const deleteImage = async (req, res, next) => {
   try {
-    const { public_id } = req.body;
-    if (!public_id) {
+    const { id } = req.params;
+    console.log(req.params);
+    if (!id) {
       return next(new ErrorHandler('No images Selected', 400));
     }
-    cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
+    cloudinary.v2.uploader.destroy(id, async (err, result) => {
       if (err) throw err;
 
       res.json({

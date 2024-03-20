@@ -20,6 +20,7 @@ const Header = () => {
         }
       );
       window.location.href = '/';
+      localStorage.removeItem('persist:root');
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +32,10 @@ const Header = () => {
           className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link className="py-2 block md:py-0 px-3 md:px-0">
+          <Link
+            to="/create_product"
+            className="py-2 block md:py-0 px-3 md:px-0"
+          >
             Create Product
           </Link>
         </li>
@@ -39,7 +43,9 @@ const Header = () => {
           className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link className="py-2 block md:py-0 px-3 md:px-0">Category</Link>
+          <Link to="/category" className="py-2 block md:py-0 px-3 md:px-0">
+            Category
+          </Link>
         </li>
       </>
     );
@@ -51,7 +57,9 @@ const Header = () => {
           className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link className="py-2 block md:py-0 px-3 md:px-0">History</Link>
+          <Link to="/history" className="py-2 block md:py-0 px-3 md:px-0">
+            History
+          </Link>
         </li>
         <li
           className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"

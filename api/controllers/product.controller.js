@@ -100,10 +100,12 @@ export const createProduct = async (req, res, next) => {
 export const updateProduct = async (req, res, next) => {
   try {
     const { title, price, description, content, images, category } = req.body;
+    console.log(title, price);
+
     if (!images) return next(new ErrorHandler('No image upload', 400));
 
-    await Products.findOneAndUpdate(
-      { _id: req.params.id },
+    await Product.findByIdAndUpdate(
+      { _id: req.params.productId },
       {
         title: title.toLowerCase(),
         price,
@@ -111,7 +113,8 @@ export const updateProduct = async (req, res, next) => {
         content,
         images,
         category,
-      }
+      },
+      { new: true }
     );
 
     res.status(200).json({ success: true, message: 'Updated a Product' });

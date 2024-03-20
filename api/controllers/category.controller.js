@@ -1,9 +1,11 @@
 import Category from '../models/category.model.js';
+import Product from '../models/product.model.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 export const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
+    console.log(name);
     if (!name) {
       return next(
         new ErrorHandler('Please kindly fill in the name of the category.', 500)
@@ -19,7 +21,7 @@ export const createCategory = async (req, res, next) => {
     await newCategory.save();
     res.status(200).json({
       success: true,
-      message: 'Created successfully.',
+      message: newCategory,
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
@@ -41,6 +43,11 @@ export const getCategory = async (req, res, next) => {
 };
 export const deleteCategory = async (req, res, next) => {
   try {
+    const category = await Category.findById(req.params.categoryId);
+    if (!category) {
+      return next(new ErrorHandler('there is no category under this id .'));
+    }
+    const products = await Product.deleteMany({ category: category.name });
     await Category.findByIdAndDelete(req.params.categoryId);
     res.status(201).json({
       success: true,

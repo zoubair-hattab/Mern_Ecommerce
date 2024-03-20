@@ -10,6 +10,7 @@ import {
   signInStart,
   signInSuccess,
 } from '../redux/reducers/userReducer';
+import { addToCard } from '../redux/reducers/cardReducer';
 
 const LoginPage = () => {
   const [userForm, setUserForm] = useState({});
@@ -31,7 +32,7 @@ const LoginPage = () => {
     try {
       dispatch(clearErrors());
       const valid = validateLogin(userForm);
-      console.log(valid);
+
       if (valid.errLength > 0) {
         setResult(valid.errMsg);
 
@@ -43,6 +44,8 @@ const LoginPage = () => {
         withCredentials: true,
       });
       dispatch(signInSuccess(res.data.message));
+      dispatch(addToCard(res.data.message.cart));
+
       navigate('/');
     } catch (error) {
       dispatch(signInFailure(error?.response?.data?.message));

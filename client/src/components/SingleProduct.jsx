@@ -2,8 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCards, removeFromCards } from '../redux/actions/cardAction';
 import { removeFromCard } from '../redux/reducers/cardReducer';
+import { Link } from 'react-router-dom';
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, deleteProduct }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   return (
@@ -25,15 +26,39 @@ const SingleProduct = ({ product }) => {
         </p>
 
         <div className="flex items-center justify-between">
-          <button
-            className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-green-400 to-blue-500  shadow-md"
-            onClick={() => dispatch(addToCards(product, currentUser))}
-          >
-            Buy
-          </button>
-          <button className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md">
-            View
-          </button>
+          {currentUser?.isAdmin ? (
+            <>
+              <button
+                onClick={() =>
+                  deleteProduct(product?._id, product.images.public_id)
+                }
+                className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-green-400 to-blue-500  shadow-md"
+              >
+                Delete
+              </button>
+              <Link
+                to={`edit_product/${product._id}`}
+                className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md"
+              >
+                Edit
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-green-400 to-blue-500  shadow-md"
+                onClick={() => dispatch(addToCards(product, currentUser))}
+              >
+                Buy
+              </button>
+              <Link
+                to={`/${product._id}`}
+                className="py-2 px-8 rounded-md text-white  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md"
+              >
+                View
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

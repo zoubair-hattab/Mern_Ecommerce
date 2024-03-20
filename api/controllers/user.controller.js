@@ -1,6 +1,6 @@
 import User from '../models/user.model.js';
 import ErrorHandler from '../utils/errorHandler.js';
-
+import Payment from '../models/payment.model.js';
 export const signout = (req, res, next) => {
   try {
     res
@@ -28,7 +28,6 @@ export const getInfoUser = async (req, res, next) => {
 export const addTocard = async (req, res, next) => {
   try {
     const { cart } = req.body;
-    console.log(cart);
     const user = await User.findById(req.user.id);
     if (!user) {
       return next(new ErrorHandler('User does not exist', 404));
@@ -40,6 +39,14 @@ export const addTocard = async (req, res, next) => {
       success: true,
       message: 'Added to cart',
     });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+};
+export const history = async (req, res, next) => {
+  try {
+    const history = await Payment.find({ user_id: req.user.id });
+    res.status(200).json({ success: true, message: history });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
   }
