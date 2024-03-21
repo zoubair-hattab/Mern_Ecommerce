@@ -5,26 +5,26 @@ import { urlServer } from '../urlServer.js';
 import axios from 'axios';
 import { loadProduct } from '../redux/actions/productAction.js';
 import Filter from '../components/Filter.jsx';
-const HomePage = () => {
+import Loading from '../components/loader/Loading.jsx';
+const HomePage = ({ setOrder, setCategory, setSearch, page, setPage }) => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.product);
-  const [product, setProduct] = useState(products?.products);
+  const { products, loading } = useSelector((state) => state.product);
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    setProduct(products);
+  }, [products]);
+
   const deleteProduct = async (id, public_id) => {
     try {
-      const destroyImg = await axios.delete(
-        `${urlServer}/upload/delete-image/${public_id}`,
-
-        { withCredentials: true }
-      );
       const deleteProduct = await axios.delete(
         `${urlServer}/product/delete/${id}`,
         { withCredentials: true }
       );
-      const filters = products.products.filter((item) => {
+      const filters = product?.filter((item) => {
         return item._id !== id;
       });
       setProduct(filters);
-      await await dispatch(loadProduct());
     } catch (err) {
       console.log(err.message);
     }
@@ -32,16 +32,40 @@ const HomePage = () => {
 
   return (
     <div className="section container">
-      <Filter />
-      <div className=" gap-6 grid grid-cols-1  sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4">
-        {product?.map((product) => (
-          <SingleProduct
-            key={product._id}
-            product={product}
-            deleteProduct={deleteProduct}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          <Filter
+            setOrder={setOrder}
+            setCategory={setCategory}
+            setSearch={setSearch}
           />
-        ))}
-      </div>
+          <div className=" gap-6 grid grid-cols-1   sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4">
+            {product?.map((product) => (
+              <SingleProduct
+                key={product._id}
+                product={product}
+                deleteProduct={deleteProduct}
+              />
+            ))}
+          </div>
+          {product.length < page * 4 ? (
+            ''
+          ) : (
+            <button
+              type="button"
+              onClick={() => setPage(page + 1)}
+              className=" mt-5   text-white bg-gradient-to-br
+           from-purple-600 to-blue-500 
+           hover:bg-gradient-to-bl  
+            rounded-lg text-sm px-5 py-2.5 text-center  block mx-auto"
+            >
+              Load more
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

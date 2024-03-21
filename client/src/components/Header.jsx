@@ -29,21 +29,18 @@ const Header = () => {
     return (
       <>
         <li
-          className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
+          className="hover:bg-slate-200 rounded-md  transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link
-            to="/create_product"
-            className="py-2 block md:py-0 px-3 md:px-0"
-          >
+          <Link to="/create_product" className="py-2 px-3 block rounded-md">
             Create Product
           </Link>
         </li>
         <li
-          className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
+          className="hover:bg-slate-200 rounded-md  transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link to="/category" className="py-2 block md:py-0 px-3 md:px-0">
+          <Link to="/category" className="py-2 px-3 block rounded-md">
             Category
           </Link>
         </li>
@@ -54,26 +51,26 @@ const Header = () => {
     return (
       <>
         <li
-          className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
+          className="hover:bg-slate-200 rounded-md  transition-all duration-300"
           onClick={() => setMenu(false)}
         >
-          <Link to="/history" className="py-2 block md:py-0 px-3 md:px-0">
+          <Link to="/history" className="py-2 px-3 block rounded-md">
             History
           </Link>
         </li>
         <li
-          className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
+          className="hover:bg-slate-200 rounded-md  transition-all duration-300"
           onClick={() => setMenu(false)}
           onClick={logout}
         >
-          <Link className="py-2 block md:py-0 px-3 md:px-0">Logout</Link>
+          <Link className="py-2 px-3 block rounded-md">Logout</Link>
         </li>
       </>
     );
   };
   return (
-    <header className="bg-slate-400 fixed top-0 w-full shadow-md z-30">
-      <div className="container py-5 flex items-center justify-between gap-5">
+    <header className="bg-slate-300 fixed top-0 w-full shadow-md z-30">
+      <div className="container py-4 flex items-center justify-between gap-5">
         <h1 className="text-xl font-semibold text-gray-600">
           <Link to="/">
             Zoubair
@@ -98,10 +95,10 @@ const Header = () => {
             loggedRouter()
           ) : (
             <li
-              className="hover:bg-slate-500 md:hover:bg-transparent transition-all duration-300"
+              className="hover:bg-slate-200 rounded-md  transition-all duration-300"
               onClick={() => setMenu(false)}
             >
-              <Link to="/login" className="py-2 block md:py-0 px-3 md:px-0">
+              <Link to="/login" className="py-2 px-3 block ">
                 Sign In
               </Link>
             </li>
@@ -125,8 +122,8 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`fixed top-0 left-0 w-full h-screen bg-black opacity-25 md:hidden ${
-          menu ? 'flex' : 'hidden'
+        className={`fixed top-0 left-0 w-full h-screen bg-black opacity-25 md:hidden md:static ${
+          menu ? 'flex' : `hidden ${() => setMenu(false)()}`
         }`}
       ></div>
     </header>

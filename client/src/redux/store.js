@@ -13,8 +13,8 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: 'root',
-  storage,
-  version: 1,
+  storage: storage,
+  whitelist: ['user'], // Only 'user' reducer will be persisted
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

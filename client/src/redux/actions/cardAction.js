@@ -35,7 +35,6 @@ export const removeFromCards =
   (item, currentUser) => async (dispatch, getState) => {
     try {
       if (!currentUser) {
-        console.log('you are not login');
         return;
       }
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,16 +18,31 @@ import AdminRouter from './components/AdminRouter';
 import CreateProduct from './pages/CreateProduct';
 function App() {
   const dispatch = useDispatch();
+  const [order, setOrder] = useState('');
+  const [page, setPage] = useState(1);
+  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState('');
   useEffect(() => {
     dispatch(loadUser());
-    dispatch(loadProduct());
-  }, []);
+    dispatch(loadProduct(page, category, order, search));
+  }, [dispatch, page, order, search, category]);
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/">
-          <Route index element={<HomePage />} />
+          <Route
+            index
+            element={
+              <HomePage
+                setOrder={setOrder}
+                setCategory={setCategory}
+                setSearch={setSearch}
+                setPage={setPage}
+                page={page}
+              />
+            }
+          />
           <Route path=":id" element={<DetailsPage />} />
 
           <Route element={<IsLoginRouter />}>

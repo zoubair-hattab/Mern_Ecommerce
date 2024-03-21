@@ -5,13 +5,19 @@ import {
   productSuccess,
 } from '../reducers/productRducer';
 import axios from 'axios';
-export const loadProduct = () => async (disptach) => {
-  try {
-    disptach(productStart());
-    const res = await axios.get(`${urlServer}/product/getProducts`);
-    console.log(res.data);
-    disptach(productSuccess(res?.data?.message));
-  } catch (error) {
-    disptach(productFail(error?.response?.data?.message));
-  }
-};
+export const loadProduct =
+  (page = 1, category = '', sort = '', search = '') =>
+  async (disptach) => {
+    try {
+      disptach(productStart());
+
+      const res = await axios.get(
+        `${urlServer}/product/getProducts?limit=${
+          page * 8
+        }&${category}&${sort}&title[regex]=${search}`
+      );
+      disptach(productSuccess(res?.data?.message.products));
+    } catch (error) {
+      disptach(productFail(error?.response?.data?.message));
+    }
+  };

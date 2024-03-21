@@ -27,7 +27,7 @@ const HistoryDetails = () => {
     };
     loadHistroy();
   }, [currentUser, id]);
-  console.log(data);
+
   return (
     <div className="section max-w-2xl w-full mx-auto">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

@@ -40,7 +40,7 @@ const CreateProduct = () => {
   useEffect(() => {
     if (id) {
       setOnEdit(true);
-      products?.products.forEach((product) => {
+      products?.forEach((product) => {
         if (product._id === id) {
           setProductFrom(product);
         }
@@ -125,6 +125,7 @@ const CreateProduct = () => {
           navigate('/');
         } else {
           console.log('please Upload an image first');
+          return;
         }
       } else {
         if (productForm?.images) {
@@ -137,6 +138,7 @@ const CreateProduct = () => {
           );
         } else {
           console.log('please Upload an image first');
+          return;
         }
         await dispatch(loadProduct());
         navigate('/');
@@ -275,7 +277,8 @@ const CreateProduct = () => {
           </select>
           <button
             type="submit"
-            className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+            className="bg-slate-700 text-white rounded-lg py-2 px-4  hover:opacity-95 disabled:opacity-80"
+            disabled={loading}
           >
             {onEdit ? 'Edit Product' : 'Create Product'}
           </button>
