@@ -12,7 +12,9 @@ import productRouters from './routes/product.router.js';
 import paymentRouters from './routes/payment.router.js';
 import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
+import path from 'path';
 dotenv.config();
+const __dirname = path.resolve();
 const app = express();
 app.use(express.json());
 app.use(
@@ -34,6 +36,7 @@ cloudinary.config({
 });
 connectDB();
 // routers
+app.use(express.static(path.join(__dirname, '/client/dist')));
 app.use('/api/v2/auth', authRouters);
 app.use('/api/v2/user', userRouters);
 app.use('/api/v2/category', categoryRouters);
