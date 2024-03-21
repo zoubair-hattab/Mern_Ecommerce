@@ -1,1 +1,1 @@
-export const urlServer = 'http://localhost:3000/api/v2';
+export const urlServer = 'https://mern-ecommerce-1-thai.onrender.com';
