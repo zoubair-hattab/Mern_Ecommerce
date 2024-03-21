@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ['https://mern-ecommerce-1-thai.onrender.com'],
+    origin: ['*'],
     credentials: true,
   })
 );
