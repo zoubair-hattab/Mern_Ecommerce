@@ -37,12 +37,12 @@ cloudinary.config({
 connectDB();
 // routers
 app.use(express.static(path.join(__dirname, '/client/dist')));
-app.use('/api/v2/auth', authRouters);
-app.use('/api/v2/user', userRouters);
-app.use('/api/v2/category', categoryRouters);
-app.use('/api/v2/product', productRouters);
-app.use('/api/v2/upload', uploadRouters);
-app.use('/api/v2/payment', paymentRouters);
+app.use('/api/auth', authRouters);
+app.use('/api/user', userRouters);
+app.use('/api/category', categoryRouters);
+app.use('/api/product', productRouters);
+app.use('/api/upload', uploadRouters);
+app.use('/api/payment', paymentRouters);
 
 // Handle error
 app.use(ErrorHnadler);
