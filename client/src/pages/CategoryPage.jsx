@@ -12,7 +12,7 @@ const CategoryPage = () => {
   useEffect(() => {
     const loadCategory = async () => {
       try {
-        const res = await axios.get(`${urlServer}/category/getcategories`);
+        const res = await axios.get(`/api/category/getcategories`);
 
         setCategories(res.data.message);
       } catch (error) {
@@ -25,7 +25,7 @@ const CategoryPage = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${urlServer}/category/create-category`,
+        `/api/category/create-category`,
         { name },
         {
           withCredentials: true,
@@ -39,7 +39,7 @@ const CategoryPage = () => {
   };
   const deleteCategory = async (id) => {
     try {
-      await axios.delete(`${urlServer}/category/delete/${id}`, {
+      await axios.delete(`/api/category/delete/${id}`, {
         withCredentials: true,
       });
       const newArray = categories.filter((item) => item._id != id);
@@ -58,7 +58,7 @@ const CategoryPage = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        `${urlServer}/category/update/${id}`,
+        `/api/category/update/${id}`,
         { name },
         {
           withCredentials: true,

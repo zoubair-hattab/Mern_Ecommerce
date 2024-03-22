@@ -18,7 +18,7 @@ export const addToCards = (item, currentUser) => async (dispatch, getState) => {
         addToCard([...getState()?.card?.card, { ...item, quantity: 1 }])
       );
       await axios.patch(
-        `${urlServer}/user/add-to-cart`,
+        `/api/user/add-to-cart`,
         {
           cart,
         },
@@ -44,7 +44,7 @@ export const removeFromCards =
 
       dispatch(addToCard(check));
       await axios.patch(
-        `${urlServer}/user/add-to-cart`,
+        `/api/user/add-to-cart`,
         {
           cart: check,
         },

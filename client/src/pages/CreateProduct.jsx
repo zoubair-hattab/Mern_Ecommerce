@@ -28,7 +28,7 @@ const CreateProduct = () => {
   useEffect(() => {
     const loadCategory = async () => {
       try {
-        const res = await axios.get(`${urlServer}/category/getcategories`);
+        const res = await axios.get(`/api/category/getcategories`);
         setCategory(res?.data.message);
       } catch (error) {
         console.log(error);
@@ -78,7 +78,7 @@ const CreateProduct = () => {
       formData.append('file', file);
       setLoading(true);
       const res = await axios.post(
-        `${urlServer}/upload/upload-image`,
+        `/api/upload/upload-image`,
         formData,
 
         {
@@ -97,7 +97,7 @@ const CreateProduct = () => {
       setLoading(true);
       console.log(productForm?.images.public_id);
       const res = await axios.delete(
-        `${urlServer}/upload/delete-image/${productForm?.images.public_id}`,
+        `/api/upload/delete-image/${productForm?.images.public_id}`,
         {
           withCredentials: true,
         }
@@ -115,7 +115,7 @@ const CreateProduct = () => {
       if (onEdit) {
         if (productForm?.images) {
           const res = await axios.put(
-            `${urlServer}/product/update/${productForm._id}`,
+            `/api/product/update/${productForm._id}`,
             productForm,
             {
               withCredentials: true,
@@ -130,7 +130,7 @@ const CreateProduct = () => {
       } else {
         if (productForm?.images) {
           const res = await axios.post(
-            `${urlServer}/product/create-product`,
+            `/api/product/create-product`,
             productForm,
             {
               withCredentials: true,

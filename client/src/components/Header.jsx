@@ -13,7 +13,7 @@ const Header = () => {
   const logout = async () => {
     try {
       const res = await axios.post(
-        `${urlServer}/user/logout`,
+        `/api/user/logout`,
         {},
         {
           withCredentials: true,

@@ -40,7 +40,7 @@ const LoginPage = () => {
       }
       dispatch(signInStart());
 
-      const res = await axios.post(`${urlServer}/auth/login`, userForm, {
+      const res = await axios.post(`/api/auth/login`, userForm, {
         withCredentials: true,
       });
       dispatch(signInSuccess(res.data.message));

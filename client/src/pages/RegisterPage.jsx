@@ -23,7 +23,7 @@ const RegisterPage = () => {
         return;
       }
       setLoading(true);
-      await axios.post(`${urlServer}/auth/create-user`, userForm);
+      await axios.post(`/api/auth/create-user`, userForm);
       navigate('/login');
 
       setLoading(false);

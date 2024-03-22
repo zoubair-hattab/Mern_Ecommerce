@@ -12,7 +12,7 @@ export const loadProduct =
       disptach(productStart());
 
       const res = await axios.get(
-        `${urlServer}/product/getProducts?limit=${
+        `/api/product/getProducts?limit=${
           page * 8
         }&${category}&${sort}&title[regex]=${search}`
       );

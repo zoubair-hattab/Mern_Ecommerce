@@ -9,7 +9,7 @@ import axios from 'axios';
 export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserStart());
-    const res = await axios.get(`${urlServer}/user/user-info`, {
+    const res = await axios.get(`/api/user/user-info`, {
       withCredentials: true,
     });
     dispatch(loadUserSuccess(res?.data?.message));

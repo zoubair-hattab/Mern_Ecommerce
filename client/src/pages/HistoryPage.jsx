@@ -10,12 +10,12 @@ const HistoryPage = () => {
     const loadHistroy = async () => {
       try {
         if (currentUser.isAdmin) {
-          const res = await axios.get(`${urlServer}/payment`, {
+          const res = await axios.get(`/api/payment`, {
             withCredentials: true,
           });
           setData(res?.data.message);
         } else {
-          const res = await axios.get(`${urlServer}/user/history`, {
+          const res = await axios.get(`/api/user/history`, {
             withCredentials: true,
           });
           setData(res?.data.message);

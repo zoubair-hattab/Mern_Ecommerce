@@ -53,7 +53,7 @@ const CartPage = () => {
   };
   const addTocardd = async (cart) => {
     await axios.patch(
-      `${urlServer}/user/add-to-cart`,
+      `/api/user/add-to-cart`,
       {
         cart: cart,
       },
@@ -67,7 +67,7 @@ const CartPage = () => {
     const { id, payer } = payment;
     console.log(payer?.address.country_code, id);
     await axios.post(
-      `${urlServer}/payment`,
+      `/api/payment`,
       {
         cart: card,
         paymentID: id,

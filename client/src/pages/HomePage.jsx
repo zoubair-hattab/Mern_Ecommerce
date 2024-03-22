@@ -17,10 +17,9 @@ const HomePage = ({ setOrder, setCategory, setSearch, page, setPage }) => {
 
   const deleteProduct = async (id, public_id) => {
     try {
-      const deleteProduct = await axios.delete(
-        `${urlServer}/product/delete/${id}`,
-        { withCredentials: true }
-      );
+      const deleteProduct = await axios.delete(`/api/product/delete/${id}`, {
+        withCredentials: true,
+      });
       const filters = product?.filter((item) => {
         return item._id !== id;
       });

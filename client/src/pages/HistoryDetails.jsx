@@ -11,13 +11,13 @@ const HistoryDetails = () => {
     const loadHistroy = async () => {
       try {
         if (currentUser.isAdmin) {
-          const res = await axios.get(`${urlServer}/payment`, {
+          const res = await axios.get(`/api/payment`, {
             withCredentials: true,
           });
           const filterd = res?.data.message.find((item) => item._id === id);
           setData(filterd);
         } else {
-          const res = await axios.get(`${urlServer}/user/history`, {
+          const res = await axios.get(`/api/user/history`, {
             withCredentials: true,
           });
           const filterd = res?.data.message.find((item) => item._id === id);

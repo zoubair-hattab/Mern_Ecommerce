@@ -8,7 +8,7 @@ const Filter = ({ setCategory, setSearch, setOrder }) => {
   useEffect(() => {
     const loadCategory = async () => {
       try {
-        const res = await axios.get(`${urlServer}/category/getcategories`);
+        const res = await axios.get(`/api/category/getcategories`);
 
         setCategories(res.data.message);
       } catch (error) {
